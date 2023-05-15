@@ -1,7 +1,7 @@
 package zcore
 
 import (
-    "github.com/d3code/clog/pkg"
+    "github.com/d3code/clog/color"
     "go.uber.org/zap"
     "go.uber.org/zap/buffer"
     "go.uber.org/zap/zapcore"
@@ -17,7 +17,7 @@ func (e *JsonEncoder) EncodeEntry(entry zapcore.Entry, fields []zapcore.Field) (
     buf := e.Pool.Get()
 
     if entry.Level == zapcore.DebugLevel {
-        entry.Message = pkg.ColorString(entry.Message, "grey")
+        entry.Message = color.ColorString(entry.Message, "grey")
     }
 
     fields = append(fields, zap.String("environment", os.Getenv("environment")))

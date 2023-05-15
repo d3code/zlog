@@ -1,7 +1,7 @@
 package zcore
 
 import (
-    "github.com/d3code/clog/pkg"
+    "github.com/d3code/clog/color"
     "go.uber.org/zap/buffer"
     "go.uber.org/zap/zapcore"
     "time"
@@ -16,7 +16,7 @@ func (e *ConsoleEncoder) EncodeEntry(entry zapcore.Entry, fields []zapcore.Field
     buf := e.Pool.Get()
 
     if entry.Level == zapcore.DebugLevel {
-        entry.Message = pkg.ColorString(entry.Message, "grey")
+        entry.Message = color.ColorString(entry.Message, "grey")
     }
 
     entry.Time = entry.Time.Local()
@@ -36,24 +36,24 @@ func (e *ConsoleEncoder) EncodeEntry(entry zapcore.Entry, fields []zapcore.Field
 
 func EncodeTime(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
     format := t.Format(time.RFC3339)
-    greyTime := pkg.ColorString(format, "grey")
+    greyTime := color.ColorString(format, "grey")
     enc.AppendString(greyTime)
 }
 
 func EncodeCallerColor(caller zapcore.EntryCaller, enc zapcore.PrimitiveArrayEncoder) {
     path := caller.TrimmedPath()
-    greyPath := pkg.ColorString(path, "grey")
+    greyPath := color.ColorString(path, "grey")
     enc.AppendString(greyPath)
 }
 
 func EncodeLevelColor() zapcore.LevelEncoder {
-    debug := pkg.ColorString("DEBUG", "grey")
-    info := pkg.ColorString("INFO", "blue")
-    warning := pkg.ColorString("WARNING", "yellow")
-    errorLevel := pkg.ColorString("ERROR", "red")
-    critical := pkg.ColorString("CRITICAL", "red")
-    alert := pkg.ColorString("ALERT", "red")
-    emergency := pkg.ColorString("EMERGENCY", "red")
+    debug := color.ColorString("DEBUG", "grey")
+    info := color.ColorString("INFO", "blue")
+    warning := color.ColorString("WARNING", "yellow")
+    errorLevel := color.ColorString("ERROR", "red")
+    critical := color.ColorString("CRITICAL", "red")
+    alert := color.ColorString("ALERT", "red")
+    emergency := color.ColorString("EMERGENCY", "red")
 
     return func(l zapcore.Level, enc zapcore.PrimitiveArrayEncoder) {
 
