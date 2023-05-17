@@ -3,7 +3,7 @@ module github.com/d3code/zlog
 go 1.20
 
 require (
-	github.com/d3code/clog v0.0.0-20230516113731-01d420d48fe2
+	github.com/d3code/clog v0.0.0-20230517134008-4946adb248ba
 	go.uber.org/zap v1.24.0
 )
 
