@@ -11,7 +11,6 @@ import (
 var Log *zap.SugaredLogger
 
 func init() {
-
     if os.Getenv("environment") == "" {
         config := zcore.Config
         config.EncodeTime = zcore.EncodeTime
