@@ -17,7 +17,7 @@ func (e *JsonEncoder) EncodeEntry(entry zapcore.Entry, fields []zapcore.Field) (
     buf := e.Pool.Get()
 
     if entry.Level == zapcore.DebugLevel {
-        entry.Message = color.ColorString(entry.Message, "grey")
+        entry.Message = color.String(entry.Message, "grey")
     }
 
     fields = append(fields, zap.String("environment", os.Getenv("environment")))

@@ -16,7 +16,7 @@ func (e *ConsoleEncoder) EncodeEntry(entry zapcore.Entry, fields []zapcore.Field
     buf := e.Pool.Get()
 
     if entry.Level == zapcore.DebugLevel {
-        entry.Message = color.ColorString(entry.Message, "grey")
+        entry.Message = color.String(entry.Message, "grey")
     }
 
     entry.Time = entry.Time.Local()
@@ -36,24 +36,24 @@ func (e *ConsoleEncoder) EncodeEntry(entry zapcore.Entry, fields []zapcore.Field
 
 func EncodeTime(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
     format := t.Format(time.RFC3339)
-    greyTime := color.ColorString(format, "grey")
+    greyTime := color.String(format, "grey")
     enc.AppendString(greyTime)
 }
 
 func EncodeCallerColor(caller zapcore.EntryCaller, enc zapcore.PrimitiveArrayEncoder) {
     path := caller.TrimmedPath()
-    greyPath := color.ColorString(path, "grey")
+    greyPath := color.String(path, "grey")
     enc.AppendString(greyPath)
 }
 
 func EncodeLevelColor() zapcore.LevelEncoder {
-    debug := color.ColorString("DEBUG", "grey")
-    info := color.ColorString("INFO", "blue")
-    warning := color.ColorString("WARNING", "yellow")
-    errorLevel := color.ColorString("ERROR", "red")
-    critical := color.ColorString("CRITICAL", "red")
-    alert := color.ColorString("ALERT", "red")
-    emergency := color.ColorString("EMERGENCY", "red")
+    debug := color.String("DEBUG", "grey")
+    info := color.String("INFO", "blue")
+    warning := color.String("WARNING", "yellow")
+    errorLevel := color.String("ERROR", "red")
+    critical := color.String("CRITICAL", "red")
+    alert := color.String("ALERT", "red")
+    emergency := color.String("EMERGENCY", "red")
 
     return func(l zapcore.Level, enc zapcore.PrimitiveArrayEncoder) {
 
