@@ -15,11 +15,16 @@ type ConsoleEncoder struct {
 func (e *ConsoleEncoder) EncodeEntry(entry zapcore.Entry, fields []zapcore.Field) (*buffer.Buffer, error) {
     buf := e.Pool.Get()
 
-    if entry.Level == zapcore.DebugLevel {
+    switch level := entry.Level; {
+    case level == zapcore.DebugLevel:
         entry.Message = color.String(entry.Message, "grey")
+    case level == zapcore.WarnLevel:
+        entry.Message = color.String(entry.Message, "yellow")
+    case level >= zapcore.ErrorLevel:
+        entry.Message = color.String(entry.Message, "red")
     }
 
-    entry.Time = entry.Time.Local()
+    //entry.Time = entry.Time.Local()
 
     consoleBuffer, err := e.Encoder.EncodeEntry(entry, fields)
     if err != nil {
