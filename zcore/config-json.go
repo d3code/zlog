@@ -1,7 +1,6 @@
 package zcore
 
 import (
-    "github.com/d3code/clog/color"
     "go.uber.org/zap"
     "go.uber.org/zap/buffer"
     "go.uber.org/zap/zapcore"
@@ -16,12 +15,9 @@ type JsonEncoder struct {
 func (e *JsonEncoder) EncodeEntry(entry zapcore.Entry, fields []zapcore.Field) (*buffer.Buffer, error) {
     buf := e.Pool.Get()
 
-    if entry.Level == zapcore.DebugLevel {
-        entry.Message = color.String(entry.Message, "grey")
+    if env, found := os.LookupEnv("ENVIRONMENT"); found {
+        fields = append(fields, zap.String("environment", env))
     }
-
-    fields = append(fields, zap.String("environment", os.Getenv("environment")))
-    entry.Time = entry.Time.Local()
 
     consoleBuffer, err := e.Encoder.EncodeEntry(entry, fields)
     if err != nil {
@@ -34,4 +30,9 @@ func (e *JsonEncoder) EncodeEntry(entry zapcore.Entry, fields []zapcore.Field) (
     }
 
     return buf, nil
+}
+
+func EncodeCallerFull(caller zapcore.EntryCaller, enc zapcore.PrimitiveArrayEncoder) {
+    path := caller.FullPath()
+    enc.AppendString(path)
 }

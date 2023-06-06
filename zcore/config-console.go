@@ -24,8 +24,6 @@ func (e *ConsoleEncoder) EncodeEntry(entry zapcore.Entry, fields []zapcore.Field
         entry.Message = color.String(entry.Message, "red")
     }
 
-    //entry.Time = entry.Time.Local()
-
     consoleBuffer, err := e.Encoder.EncodeEntry(entry, fields)
     if err != nil {
         return nil, err
