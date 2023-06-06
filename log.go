@@ -11,7 +11,7 @@ import (
 var Log *zap.SugaredLogger
 
 func init() {
-    if os.Getenv("environment") == "" {
+    if env, found := os.LookupEnv("ENVIRONMENT"); !found || env != "production" {
         config := zcore.Config
         config.EncodeTime = zcore.EncodeTime
         config.EncodeCaller = zcore.EncodeCallerColor
