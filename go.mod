@@ -1,6 +1,6 @@
 module github.com/d3code/zlog
 
-go 1.20
+go 1.21
 
 require (
 	github.com/d3code/clog v0.0.0-20230529212721-c2862b694b95
