@@ -31,6 +31,7 @@ func init() {
             zap.AddStacktrace(zapcore.FatalLevel),
             zap.AddCaller(),
         ).Sugar()
+
     } else {
         config.EncodeCaller = zcore.EncodeCallerFull
 
